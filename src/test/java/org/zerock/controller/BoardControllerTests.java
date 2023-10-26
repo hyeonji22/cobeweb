@@ -39,7 +39,7 @@ public class BoardControllerTests {
 		
 		log.info(
 				mockMvc.perform(
-						MockMvcRequestBuilders.get("/list"))
+						MockMvcRequestBuilders.get("/"))
 				.andReturn()
 				.getModelAndView()
 				.getModelMap());
