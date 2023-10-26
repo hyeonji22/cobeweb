@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.zerock.domain.BoardVO;
 import org.zerock.service.BoardService;
 
+import lombok.extern.log4j.Log4j;
+
 @Controller
+@Log4j
 public class BoardController {
 
 	@Autowired
@@ -18,6 +21,7 @@ public class BoardController {
 	@GetMapping("/")
 	public String boardList(Model model) {
 		
+		log.info("boardList..............");
 		List<BoardVO> boardList = boardService.getList();
 		
 		model.addAttribute("boardList", boardList);
