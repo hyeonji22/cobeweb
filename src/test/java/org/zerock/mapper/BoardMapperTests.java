@@ -5,6 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.domain.BoardVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -18,6 +19,38 @@ public class BoardMapperTests {
 
 	@Test
 	public void getList() {
-		System.out.println(boardMapper.getList()); 
+		log.info("-----------");
+		boardMapper.getList();
 	}
+	@Test
+	public void testInsert() {
+		BoardVO vo = new BoardVO();
+		vo.setTitle("test테스트");
+		vo.setContent("content 내용");
+		vo.setWriter("tester");
+		
+		boardMapper.insert(vo);
+	}
+	@Test
+	public void testread() {
+		BoardVO vo = boardMapper.read(9L);
+		log.info(vo);
+	}
+	@Test
+	public void testDelete() {
+		int count = boardMapper.delete(1L);
+	}
+	@Test
+	public void testUpdate() {
+		
+		BoardVO vo = new BoardVO();
+		vo.setBno(2L);
+		vo.setTitle("updateTitle");
+		vo.setContent("Updated content");
+		vo.setWriter("user00");
+		
+		log.info("count:" +boardMapper.update(vo));
+		
+	}
+	
 }
