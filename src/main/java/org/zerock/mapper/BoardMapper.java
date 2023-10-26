@@ -10,6 +10,10 @@ public interface BoardMapper {
 	
 	void insert(BoardVO vo);
 	
+	BoardVO get(Long bno);
+	
+	void insertSelectKey(BoardVO board);
+	
 	BoardVO read(Long bno);
 	
 	int delete(Long bno);
