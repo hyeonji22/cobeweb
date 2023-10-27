@@ -21,18 +21,19 @@ public class BoardController {
 	
 	private final BoardService service;
 	
+	//목록
 	@GetMapping("/list")
 	public void list(Model model) {
 		
 		log.info("list .......................");
 		model.addAttribute("list", service.getList());
 	}
-	
+	//글등록페이지
 	@GetMapping("/register")
 	public void registreGet() {
 		
 	}
-	
+	//글등록
 	@PostMapping("/register")
 	public String register(BoardVO board, RedirectAttributes rttr) {
 		
@@ -44,13 +45,13 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
-	
-	@GetMapping("/get")
+	//상세보기 페이지  ,수정페이지 
+	@GetMapping({"/get" , "/modify"}) //두개 같이 처리해줄수 있음 
 	public void get(@RequestParam("bno")Long bno ,Model model) {
 		model.addAttribute("board", service.get(bno));
 		}
 	
-	
+	//글수정
 	@PostMapping("/modify")
 	public String modify(BoardVO board, RedirectAttributes rttr) {
 		
@@ -60,6 +61,7 @@ public class BoardController {
 		}
 		return "redirect:/board/list";
 	}
+	//글삭제
 	@PostMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
 		
@@ -68,6 +70,6 @@ public class BoardController {
 		if(count == 1) {
 			rttr.addFlashAttribute("result","success");
 		}
-		return "redirect:/list";
+		return "redirect:/board/list";
 	}
 }

@@ -81,6 +81,7 @@
 
 <!-- 글작성 완료시 모달창 알림 -->
 $(document).ready(function(){
+	//bno값이 result에 담김 
 	var result= '<c:out value ='${result}'/>';
 	
 	checkModal(result);
@@ -91,7 +92,9 @@ $(document).ready(function(){
 		if(result ==='' ||  history.state){
 			return;
 		}
-		if(parseInt(result) > 0 ){
+		if(result ==='success'){ //삭제나 수정되었을때 
+			$(".modal-body").html("정상적으로 처리 되었습니다.");
+		}else if (parseInt(result) > 0 ){//글등록 되엇을때 bno값 담김 그때 
 			$(".modal-body").html("게시글"+parseInt(result)+"번이 등록되었습니다.");
 		}
 

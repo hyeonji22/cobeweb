@@ -7,7 +7,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Board Read</h1>
+                    <h1 class="page-header">Board Modify/Delete</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -19,14 +19,15 @@
                             Board Read
                         </div>
                         <!-- /.panel-heading -->
+                        <form>
                         <div class="panel-body">
 	                           <div class="form-group">
 	                                <label>Bno</label>
-	                                <input class="form-control" name="title" readonly="readonly" value="<c:out value ='${board.bno}'/>">
+	                                <input class="form-control" name="bno" readonly="readonly" value="<c:out value ='${board.bno}'/>">
 	                           </div>
 	                           <div class="form-group">
 	                                <label>Title</label>
-	                                <input class="form-control" name="title" readonly="readonly" value="<c:out value ='${board.title}'/>">
+	                                <input class="form-control" name="title"  value="<c:out value ='${board.title}'/>">
 	                           </div>
 	                           <div class="form-group">
 	                                <label>Content</label>
@@ -37,8 +38,9 @@
 	                                <input class="form-control" name="writer"  value="<c:out value ='${board.writer}'/>">
 	                          </div>
 	                          
-	                          <button type="submit" class="btn btn-default"><a href="/board/list">목록</a></button>
-                              <button type="reset" class="btn btn-default"><a href="/board/modify?bno=<c:out value ='${board.bno}'/>">수정</a></button>
+	                          <button  class="btn btn-default" 	data-oper='modify'>수정</button>
+                              <button  class="btn btn-danger" 	data-oper='remove'>삭제</button>
+                              <button  class="btn btn-info" 	data-oper='list'>목록</button>
                         </form>
                         
                         </div>
@@ -49,6 +51,41 @@
                 <!-- /.col-lg-12 -->
             </div>
 
+<script>
+$(document).ready(function(){
+	
+	//폼태그 변수 생성  --> 폼태그에  액션값 메소드 값 주기위해 
+	var formObj = $("form");
+	
+	//버튼클릭할때 
+	$('.btn').click(function(e){
+		//이벤트 처리할때는 기본동작막음  ex) form태그안에서 모든 버튼 submit 됨
+		e.preventDefault();
+		
+		var operation = $(this).data("oper");
+		console.log(operation);
+		
+		//목록 ,삭제 ,수정 버튼 클릭시 
+		if(operation === 'list'){
+			self.location ="/board/list";
+		}else if(operation === 'remove'){  
+			formObj.attr("action","/board/remove")//폼테그에 액션 추가 
+			.attr("method","post"); ///폼테그에 메소드 추가   //추가해주고 개발자 화면에서  action 바뀌는지 먼저 확인해보기
+			formObj.submit();   //submit 막아뒀으니깐 직접 실행해주기 
+			
+		}else if(operation === 'modify'){
+			formObj.attr("action","/board/modify")
+			.attr("method","post"); 
+			formObj.submit();
+		}
+	})
+	
+});
+
+
+
+
+</script>
 
 
 <%@include file="../includes/footer.jsp" %>
