@@ -17,6 +17,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             DataTables Advanced Tables
+                              <button type="button" id="regBtn" class="btn btn-xs pull-right">Register New Board
+                            </button>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -51,6 +53,56 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+
+
+<!-- 모달창   -->
+		<div id="myModal" class="modal" tabindex="-1" role="dialog">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">Modal title</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        <p>Modal body text goes here.</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary">Save changes</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+            
+<script>
+
+<!-- 글작성 완료시 모달창 알림 -->
+$(document).ready(function(){
+	var result= '<c:out value ='${result}'/>';
+	
+	checkModal(result);
+	
+	function checkModal(result){
+		if(result ===''){
+			return;
+		}
+		if(parseInt(result) > 0 ){
+			$(".modal-body").html("게시글"+parseInt(result)+"번이 등록되었습니다.");
+		}
+		$("#myModal").modal("show");
+	}
+	
+	<!-- 글작성버튼 클릭시 글작성 페이지로 이동 -->
+	$("#regBtn").click(function(){
+		self.location= "/board/register";
+	});
+
+});
+
+</script>
 
 
 

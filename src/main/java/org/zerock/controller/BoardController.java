@@ -40,7 +40,7 @@ public class BoardController {
 		
 		Long bno = service.register(board);
 		log.info("BNO:"+ bno);
-		rttr.addFlashAttribute("result",bno);
+		rttr.addFlashAttribute("result",bno); //한번만 사용할때 사용 addFlashAttribute
 		
 		return "redirect:/board/list";
 	}

@@ -6,6 +6,8 @@ import org.zerock.domain.BoardVO;
 
 public interface BoardService {
 	
+	List<BoardVO> getList();
+
 	Long register(BoardVO board);
 	
 	BoardVO get(Long bno);
@@ -14,6 +16,5 @@ public interface BoardService {
 	
 	int remove(Long bno);
 	
-	List<BoardVO> getList();
 
 }

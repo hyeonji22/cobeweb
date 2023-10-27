@@ -18,7 +18,7 @@ public class BoardServicelmplTests {
 	private BoardServicelmpl service;
 	
 	@Test
-	public void testprit() {
+	public void testprint() {
 		log.info(service);
 	}
 	
