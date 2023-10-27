@@ -1,6 +1,6 @@
 package org.zerock.controller;
 
-import org.aspectj.lang.annotation.Before;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,27 +19,25 @@ import lombok.extern.log4j.Log4j;
 @WebAppConfiguration
 @ContextConfiguration({
 	"file:src/main/webapp/WEB-INF/spring/root-context.xml",
-	"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"
-})
+	"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
 @Log4j
 public class BoardControllerTests {
 	
-	@Setter(onMethod_= {@Autowired})
+	@Setter(onMethod_ = {@Autowired})
 	private WebApplicationContext ctx;
-	
+
 	private MockMvc mockMvc;
 	
-	@org.junit.Before
+	@Before
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 	
 	@Test
 	public void testList() throws Exception {
-		
 		log.info(
 				mockMvc.perform(
-						MockMvcRequestBuilders.get("/"))
+						MockMvcRequestBuilders.get("/board/list"))
 				.andReturn()
 				.getModelAndView()
 				.getModelMap());
@@ -48,11 +46,11 @@ public class BoardControllerTests {
 	public void testRegister() throws Exception {
 		log.info(
 				mockMvc.perform(
-						MockMvcRequestBuilders.post("/register")
-						.param("title","test테스트")
-						.param("content", "contetn 내용")
-						.param("writer", "user10"))
+						MockMvcRequestBuilders.post("/board/register")
+						.param("title","test 테스트" )
+						.param("content","content 테스트" )
+						.param("writer","writer 테스트" )
+						)
 				.andReturn());
-			
 	}
 }

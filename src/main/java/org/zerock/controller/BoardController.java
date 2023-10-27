@@ -1,37 +1,31 @@
 package org.zerock.controller;
 
-import java.awt.BorderLayout;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
-import org.zerock.service.BoardServicelmpl;
+import org.zerock.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/board/*")
 @Log4j
 public class BoardController {
-
-	private final BoardServicelmpl service;
 	
-	@GetMapping("/")
-	public String boardList(Model model) {
+	private final BoardService service;
+	
+	@GetMapping("/list")
+	public void list(Model model) {
 		
-		log.info("boardList..............");
-		List<BoardVO> boardList = service.getList();
-		
-		model.addAttribute("boardList", boardList);
-		return "board/list";
-		
+		log.info("list .......................");
+		model.addAttribute("list", service.getList());
 	}
 	
 	@PostMapping("/register")
@@ -43,7 +37,7 @@ public class BoardController {
 		log.info("BNO:"+ bno);
 		rttr.addFlashAttribute("result",bno);
 		
-		return "redirect:/";
+		return "redirect:/list";
 	}
 	
 	@PostMapping("/modify")
@@ -53,7 +47,7 @@ public class BoardController {
 		if(count == 1) {
 			rttr.addFlashAttribute("result","success");
 		}
-		return "redirect:/";
+		return "redirect:/list";
 	}
 	@PostMapping("/remove")
 	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
@@ -63,6 +57,6 @@ public class BoardController {
 		if(count == 1) {
 			rttr.addFlashAttribute("result","success");
 		}
-		return "redirect:/";
+		return "redirect:/list";
 	}
 }
