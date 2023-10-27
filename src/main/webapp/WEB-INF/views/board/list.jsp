@@ -36,7 +36,7 @@
                                 <c:forEach items="${list}" var="board">
                                     <tr class="odd gradeX">
                                         <td>${board.bno}</td>
-                                        <td>${board.title}</td>
+                                        <td><a href="/board/get?bno=<c:out value ='${board.bno}'/>"/>${board.title}</td>
                                         <td>${board.writer}</td>
                                         <td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate}"/></td>
                                         <td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.updateDate}"/></td>
@@ -75,7 +75,7 @@
 		    </div>
 		  </div>
 		</div>
-
+<!-- 모달창  끝-->
             
 <script>
 
@@ -84,21 +84,25 @@ $(document).ready(function(){
 	var result= '<c:out value ='${result}'/>';
 	
 	checkModal(result);
+	history.replaceState({},null, null);
 	
 	function checkModal(result){
-		if(result ===''){
+		
+		if(result ==='' ||  history.state){
 			return;
 		}
 		if(parseInt(result) > 0 ){
 			$(".modal-body").html("게시글"+parseInt(result)+"번이 등록되었습니다.");
 		}
-		$("#myModal").modal("show");
+
+		$("#myModal").modal("show"); //모달창띄어줌
 	}
 	
-	<!-- 글작성버튼 클릭시 글작성 페이지로 이동 -->
+	// 글작성버튼 클릭시 글작성 페이지로 이동   
 	$("#regBtn").click(function(){
 		self.location= "/board/register";
 	});
+	
 
 });
 
