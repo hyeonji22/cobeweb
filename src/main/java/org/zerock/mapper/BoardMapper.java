@@ -1,6 +1,7 @@
 package org.zerock.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
@@ -23,4 +24,5 @@ public interface BoardMapper {
 	
 	int getTotalCount(Criteria cri);//검색할떄도 사용하기때문에 Criteria사용
 
+	List<BoardVO> searchTest(Map<String,Map<String, String> > map);
 }
