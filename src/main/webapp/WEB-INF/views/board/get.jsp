@@ -50,10 +50,17 @@
                         	<script>
                         	var actionForm = $("#actionForm");
                         	
-                        	
+                        	//목록으로 갈떄 페이지값도같이 가지고 가짐 
                         	$(".listBtn").click(function(e){
                         		e.preventDefault();
-                        		actionForm.find("input[name='bno']").remove();
+                        		actionForm.find("input[name='bno']").remove(); //목록으로 갈땐 bno값 필요 없음
+                        		actionForm.submit();
+                        		
+                        	});
+                        	//수정버튼 클릭시
+                        	$(".modBtn").click(function(e){
+                        		e.preventDefault();
+                        		actionForm.attr("action","/board/modify");                  	
                         		actionForm.submit();
                         		
                         	});
