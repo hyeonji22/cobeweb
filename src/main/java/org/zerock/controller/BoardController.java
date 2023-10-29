@@ -3,6 +3,7 @@ package org.zerock.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,9 +57,9 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
-	//상세보기 페이지  ,수정페이지 
+	//상세보기 페이지  ,수정페이지  -->수정할때도 페이지 필요 
 	@GetMapping({"/get" , "/modify"}) //두개 같이 처리해줄수 있음 
-	public void get(@RequestParam("bno")Long bno ,Model model) {
+	public void get(@RequestParam("bno")Long bno , @ModelAttribute("cri")Criteria cri ,Model model) {
 		model.addAttribute("board", service.get(bno));
 		}
 	

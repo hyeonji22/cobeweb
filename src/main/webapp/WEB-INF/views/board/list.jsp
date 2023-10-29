@@ -36,7 +36,7 @@
                                 <c:forEach items="${list}" var="board">
                                     <tr class="odd gradeX">
                                         <td>${board.bno}</td>
-                                        <td><a href="/board/get?bno=<c:out value ='${board.bno}'/>"/>${board.title}</td>
+                                        <td><a class="move" href="<c:out value ='${board.bno}'/>"/>${board.title}</td>
                                         <td>${board.writer}</td>
                                         <td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate}"/></td>
                                         <td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.updateDate}"/></td>
@@ -51,21 +51,32 @@
           					<ul class="pagination">
           					 <c:if test="${pageMaker.prev}">
           					    <li class="page-item ">
-							      <a class="page-link" href="#" tabindex="-1">Previous</a>
+							      <a class="page-link" href="${pageMaker.startPage -1}" tabindex="-1">Previous</a>
 							    </li>
           					</c:if>	
           						<c:forEach begin="${pageMaker.startPage }"
           									end="${pageMaker.endPage }" var="num">
-          							 <li class="page-item ${pageMaker.cri.pageNum == num?"active":""}"><a class="page-link" href="#">${num}</a></li>
+          							 <li class="page-item ${pageMaker.cri.pageNum == num?"active":""}"><a class="page-link" href="${num}">${num}</a></li>
           						</c:forEach>
           						 <c:if test="${pageMaker.next}">
           						 <li class="page-item ">
-							      <a class="page-link" href="#" tabindex="-1">next</a>
+							      <a class="page-link" href="${pageMaker.endPage+1}" tabindex="-1">next</a>
           						 </c:if>
 							    </li>
           					</ul>
           					
           					</div>
+          					
+          					<form id="actionForm" action="/board/list" method="get">
+  								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">        					 
+  								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">        					 
+          					</form>
+          					
+          					
+          					
+          					
+          					
+          					
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -126,6 +137,30 @@ $(document).ready(function(){
 		self.location= "/board/register";
 	});
 	
+	//페이지 버튼
+	var actionForm = $('#actionForm');
+	
+	$(".page-link").on("click", function(e){
+		e.preventDefault(); //기본 동작 제한
+		
+		var targetPage =$(this).attr("href"); //버튼번호
+		console.log(targetPage);
+		
+		actionForm.find("input[name='pageNum']").val(targetPage);
+		actionForm.submit();
+	});
+	
+	//상세보기 가기 버튼
+	$(".move").on("click",function(e){
+		e.preventDefault(); //기본 동작 제한
+		var targetBno =$(this).attr("href"); //버튼번호
+		
+		console.log(targetBno);
+		actionForm.append("<input type='hidden' name='bno' value='"+targetBno+"'>'");
+		actionForm.attr("action","/board/get").submit();
+
+		
+	})
 
 });
 
