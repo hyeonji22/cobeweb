@@ -20,5 +20,7 @@ public interface BoardMapper {
 	int update(BoardVO board);
 	
 	List<BoardVO> getListWithPaging(Criteria cri);
+	
+	int getTotalCount(Criteria cri);//검색할떄도 사용하기때문에 Criteria사용
 
 }

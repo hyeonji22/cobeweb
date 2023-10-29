@@ -20,6 +20,9 @@
                         </div>
                         <!-- /.panel-heading -->
                         <form>
+                        <!-- 수정할때도 페이지 번호 필요함 -->
+                        <input type="hidden" name="pageNum" value="${cri.pageNum }">
+                        <input type="hidden" name="pageNum" value="${cri.amount }">
                         <div class="panel-body">
 	                           <div class="form-group">
 	                                <label>Bno</label>

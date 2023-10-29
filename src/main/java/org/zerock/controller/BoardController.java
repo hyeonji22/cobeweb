@@ -38,7 +38,7 @@ public class BoardController {
 		log.info(cri);
 		log.info("list .......................");
 		model.addAttribute("list", service.getList(cri));
-		model.addAttribute("pageMaker", new PageDTO(cri, 123));
+		model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
 	}
 	//글등록페이지
 	@GetMapping("/register")
@@ -65,23 +65,31 @@ public class BoardController {
 	
 	//글수정
 	@PostMapping("/modify")
-	public String modify(BoardVO board, RedirectAttributes rttr) {
+	public String modify(BoardVO board,Criteria cri, RedirectAttributes rttr) {
 		
 		int count = service.modify(board);
 		if(count == 1) {
-			rttr.addFlashAttribute("result","success");
+			rttr.addFlashAttribute("result","success"); 
 		}
+		//글 수정시에도 페이징 같이감 
+		rttr.addAttribute("pageNum" ,cri.getPageNum()); 
+		rttr.addAttribute("amount" ,cri.getAmount()); 
+		
 		return "redirect:/board/list";
 	}
-	//글삭제
+	//글삭제  
 	@PostMapping("/remove")
-	public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
+	public String remove(@RequestParam("bno") Long bno,Criteria cri, RedirectAttributes rttr) {
 		
 		int count = service.remove(bno);
 		
 		if(count == 1) {
 			rttr.addFlashAttribute("result","success");
 		}
+		//글 수정시에도 페이징 같이감 
+		rttr.addAttribute("pageNum" ,cri.getPageNum()); 
+		rttr.addAttribute("amount" ,cri.getAmount()); 
+		
 		return "redirect:/board/list";
 	}
 }
