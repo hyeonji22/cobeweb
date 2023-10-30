@@ -74,6 +74,9 @@ public class BoardController {
 		//글 수정시에도 페이징 같이감 
 		rttr.addAttribute("pageNum" ,cri.getPageNum()); 
 		rttr.addAttribute("amount" ,cri.getAmount()); 
+		//검색조건도 유지시켜주기위해 두개 넣어줌 
+		rttr.addAttribute("type" ,cri.getType()); 
+		rttr.addAttribute("keyword" ,cri.getKeyword()); 
 		
 		return "redirect:/board/list";
 	}
