@@ -93,5 +93,15 @@ public class BoardMapperTests {
 		
 		log.info(list);
 	}
+	@Test
+	public void testserchPaging() {
+		//1 페이지 10개 
+		Criteria cri = new Criteria();
+		//cri.setType("TCW");
+		//cri.setKeyword("test");
+		List<BoardVO> list = boardMapper.getListWithPaging(cri);
+		
+		list.forEach(b -> log.info(b));
 	
+	}
 }

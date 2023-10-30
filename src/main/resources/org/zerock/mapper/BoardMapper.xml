@@ -4,6 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND">
+		<foreach collection="typeArr" item="type" separator="OR">
+			<if test="type =='T'.toString()">
+			title like '%'||#{keyword}||'%'
+			</if>
+			<if test="type =='C'.toString()">
+			content like '%'||#{keyword}||'%'
+			</if>
+			<if test="type =='W'.toString()">
+			writer like '%'||#{keyword}||'%'
+			</if>
+		</foreach>
+		</trim>
+	</sql>
+
   <select id="getList" resultType="org.zerock.domain.BoardVO">
 	SELECT * FROM TBL_BOARD order by bno desc
   </select>
@@ -45,13 +61,20 @@
 						regdate,
 						updatedate 
 						from tbl_board 
-				where bno > 0 and rownum > 0 and rownum <= (#{pageNum} * #{amount}) 
-				)
-	where rn > (#{pageNum}-1) *#{amount}
- ]]>
+				where 
+]]>
+	<include refid="criteria"></include>
+
+	<![CDATA[	
+					bno > 0 and rownum > 0 and rownum <= (#{pageNum} * #{amount}) 
+					)
+		where rn > (#{pageNum}-1) *#{amount}
+	]]>
   </select>
   <select id="getTotalCount" resultType="int">
-  	select count(bno) from tbl_board
+  	select count(bno) from tbl_board where
+  	<include refid="criteria"></include>
+  	 bno > 0
   </select>
 
 <select id="searchTest"  resultType="org.zerock.domain.BoardVO">
