@@ -45,8 +45,26 @@
                                  
                                 </tbody>
                             </table>
+                       <!-- 검색 기능  -->
+          				<form id="searchForm" action="/board/list" method="get">
+          					<select name="type">
+          						<option value="" 	${pageMaker.cri.type ==null?"selected":""}>---</option>
+          						<option value="T"	${pageMaker.cri.type  eq 'T'?"selected":""}>제목</option>
+          						<option value="C" 	${pageMaker.cri.type  eq 'C'?"selected":""}>내용</option>
+          						<option value="W" 	${pageMaker.cri.type  eq 'W'?"selected":""}>작성자</option>
+          						<option value="TC" 	${pageMaker.cri.type  eq 'TC'?"selected":""}>제목+내용</option>
+          						<option value="TCW" ${pageMaker.cri.type  eq 'TCW'?"selected":""}>제목+내용+작성자</option>
+          					</select>
+          					<input type="text" name="keyword" value="${pageMaker.cri.keyword}">
+          					 <!-- 폼테그 전송 페이지번호랑 amount값 같이 전송해야함 페이지 이동할때 문제 안생기게 -->
+          					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+          					<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+          					<button class="btn btn-default">Search</button>
+          				</form>
           
-          					<h3>${pageMaker }</h3>
+          
+          
+          					<%-- <h3>${pageMaker }</h3> --%>
           					<div class="pull-right">
           					<ul class="pagination">
           					 <c:if test="${pageMaker.prev}">
@@ -67,15 +85,14 @@
           					
           					</div>
           					
+          					<!-- 페이징폼 -->
           					<form id="actionForm" action="/board/list" method="get">
   								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">        					 
-  								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">        					 
+  								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">  
+  								<!--검색입략히거 페이징했을시 검색어 같이 가도록 -->      					 
+  								<input type="hidden" name="type" value="${pageMaker.cri.type}">        					 
+  								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">        					 
           					</form>
-          					
-          					
-          					
-          					
-          					
           					
                         </div>
                         <!-- /.panel-body -->
@@ -158,9 +175,19 @@ $(document).ready(function(){
 		console.log(targetBno);
 		actionForm.append("<input type='hidden' name='bno' value='"+targetBno+"'>'");
 		actionForm.attr("action","/board/get").submit();
-
+	});
+	
+	var seachForm = $("#searchForm");
+	
+	$("#searchForm button").on("click",function(e){
 		
-	})
+		e.preventDefault();
+		console.log(".........click");
+		//처음검색할땐 페이지값이 무조건 1페이지 이다
+		seachForm.find("input[name='pageNum']").val(1);
+		seachForm.submit();
+		
+	});
 
 });
 
