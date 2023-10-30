@@ -177,6 +177,7 @@ $(document).ready(function(){
 		actionForm.attr("action","/board/get").submit();
 	});
 	
+	//검색버튼 
 	var seachForm = $("#searchForm");
 	
 	$("#searchForm button").on("click",function(e){

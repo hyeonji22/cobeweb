@@ -51,6 +51,7 @@
 	 	updatedate = sysdate
 	 where bno  =${bno}
   </update>
+  
   <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
 <![CDATA[
 	select *from (
@@ -82,19 +83,6 @@
 	select * from tbl_board
 	where
 	 ]]>
-	 <trim suffix="and">
-	<foreach collection="map" index="key" item="val" separator="OR" open="(" close=")">
-		<if test="key == 'T'.toString()">
-		content like #{val}
-		</if>
-		<if test="key == 'C'.toString()">
-		title like #{val}
-		</if>
-		<if test="key == 'W'.toString()">
-		writer like #{val}
-		</if>
-	</foreach>
-	 </trim>
 	 
 	<![CDATA[
 	rownum <10
