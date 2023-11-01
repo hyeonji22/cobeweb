@@ -133,13 +133,14 @@ $(document).ready(function(){
 	var result= '<c:out value ='${result}'/>';
 	
 	checkModal(result);
-	history.replaceState({},null, null);
+	
+	history.replaceState({},null,null);
 	
 	function checkModal(result){
 		
-		if(result ==='' ||  history.state){
-			return;
-		}
+		 if(result==''|| history.state){ //히스토리는 이벤트를 담아두는 문서객체
+			 return;
+		 }
 		if(result ==='success'){ //삭제나 수정되었을때 
 			$(".modal-body").html("정상적으로 처리 되었습니다.");
 		}else if (parseInt(result) > 0 ){//글등록 되엇을때 bno값 담김 그때 

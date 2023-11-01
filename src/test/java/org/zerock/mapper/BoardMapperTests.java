@@ -14,7 +14,6 @@ import org.zerock.domain.Criteria;
 import org.zerock.domain.PageDTO;
 
 import lombok.extern.log4j.Log4j;
-import oracle.net.aso.p;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
